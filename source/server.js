@@ -22,7 +22,6 @@ class Server {
 
   routes() {
     this.app.use("/aoxlab/user/", require("../public/routes/userRouter"));
-    this.app.use("/aoxlab/company/", require("../public/routes/companyRouter"));
     this.app.use("/aoxlab/application/", require("../public/routes/applicationRouter"));
     this.app.use("/aoxlab/role/", require("../public/routes/roleRouter"));
     this.app.use("/aoxlab/program/", require("../public/routes/programRouter"));

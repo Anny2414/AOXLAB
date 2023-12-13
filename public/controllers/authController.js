@@ -1,11 +1,10 @@
 const User = require("../models/userModel");
-const Company = require("../models/companyModel");
 const jwt = require("jsonwebtoken");
 const Role = require("../models/roleModel");
 const login = async (req, res) => {
   try {
-    const { identification, password } = req.body;
-    const usuario = await User.findOne({ identification });
+    const { NIT, password } = req.body;
+    const usuario = await User.findOne({ NIT});
     if (!usuario) {
       return (
         res.status(404).json({ message: "Usuario no encontrado" }),
@@ -19,7 +18,7 @@ const login = async (req, res) => {
     );
 
     if (isPasswordValid) {
-      const usuario = await User.findOne({ identification });
+      const usuario = await User.findOne({NIT});
       const token = jwt.sign({ id: usuario._id }, process.env.SECRET, {
         expiresIn: 86400,
       });
@@ -34,40 +33,21 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, nit, identification, email, phone, password, roles, status } =
+  const { name, NIT_, email, phone, password, roles, status } =
     req.body;
-  const usuario = await User.findOne({ identification });
+  const usuario = await User.findOne({ NIT_ });
   if (usuario) {
     return res.status(500).json({ message: "Este usuario ya está registrado" });
   } else if (!usuario) {
     const newuser = new User({
       name,
-      nit,
-      identification,
+      NIT_,
       email,
       phone,
       password: await User.encryptPassword(password),
       status,
     });
 
-    if (nit && nit.length > 0) {
-      const foundNit = await Company.find({ NIT: { $in: nit } });
-      console.log(foundNit);
-      if (foundNit.length > 0) {
-        newuser.NIT_ = foundNit.map((company) => company._id);
-      } else {
-        return res.status(400).json({ message: "NIT no válido" });
-      }
-    } else {
-      const defaultNIT = await Company.findOne({ NIT: "00000" }); // Reemplaza "NIT_predeterminado" por el NIT que deseas usar por defecto
-      if (defaultNIT) {
-        newuser.NIT_ = [defaultNIT._id];
-      } else {
-        return res
-          .status(500)
-          .json({ message: "NIT predeterminado no encontrado" });
-      }
-    }
     if (roles && roles.length > 0) {
       const foundRoles = await Role.find({ Nombre: { $in: roles } });
       if (foundRoles.length > 0) {

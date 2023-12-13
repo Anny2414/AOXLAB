@@ -5,16 +5,10 @@ const modelUser = new Schema({
     type: String,
     required: ["el nombre es obligatorio"],
   },
-  NIT_: [
-    {
-      ref: "Company",
-      type: Schema.Types.ObjectId,
-    },
-  ],
-  identification: {
+  NIT_: {
     type: String,
     unique: true,
-    required: ["la identificacion es obligatoria"],
+    required: ["el nit de la empresa es obligatorio"],
   },
   email: {
     type: String,

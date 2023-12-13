@@ -23,12 +23,12 @@ const getUsers = async (req, res) => {
   });
 };
 const postUser = async (req, res) => {
-  const { name, lastname, identification, password } = req.body;
+  const { name, lastname, NIT_, password } = req.body;
   const hashedPassword = await bcryptjs.hash(password, 10);
   const usuario = new Usuario({
     name,
     lastname,
-    identification,
+    NIT_,
     password: hashedPassword,
   });
   await usuario.save();
@@ -40,7 +40,7 @@ const postUser = async (req, res) => {
 };
 const putUser = async (req, res) => {
   const id = req.params.id;
-  const { name, lastname, identification, password } = req.body;
+  const { name, lastname, NIT_, password } = req.body;
   const usuario = await Usuario.findById({ _id: id });
   const hashedPassword = await bcryptjs.hash(password, 10);
   if (!usuario) {
@@ -48,7 +48,7 @@ const putUser = async (req, res) => {
   }
   usuario.name = name;
   usuario.lastname = lastname;
-  usuario.identification = identification;
+  usuario.NIT_ = NIT_;
   usuario.password = hashedPassword;
   await usuario.save();
   res.send({
