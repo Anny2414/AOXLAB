@@ -12,7 +12,12 @@ class Server {
   middlewares() {
     this.app.use(express.static("public"));
     this.app.use(express.json());
-    this.app.use(cors());
+    this.app.use(cors({
+      origin: 'https://aoxlab-zim0.onrender.com',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+      credentials: true,
+    }));
     this.conection();
   }
 
@@ -21,8 +26,6 @@ class Server {
   }
 
   routes() {
-    res.header('Access-Control-Allow-Origin', 'https://aoxlab-zim0.onrender.com'); // Permitir solicitudes desde este origen
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     this.app.use("/aoxlab/user/", require("../public/routes/userRouter"));
     this.app.use("/aoxlab/application/", require("../public/routes/applicationRouter"));
     this.app.use("/aoxlab/role/", require("../public/routes/roleRouter"));
