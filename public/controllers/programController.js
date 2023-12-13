@@ -1,5 +1,6 @@
 const program = require("../models/programModel");
 const User = require ("../models/userModel")
+const aplication = require("../models/applicationModel")
 const getprograms = async (req, res) => {
   const programas = await program.find();
   try {
@@ -28,7 +29,7 @@ const getProgrambyid = async (req, res) => {
 };
 
 const postProgram = async (req, res) => {
-  const { title,start,status,user } = req.body;
+  const { title,start,status,user,Info } = req.body;
 
   const Program = new program({
     title,start,status,user
@@ -40,6 +41,15 @@ const postProgram = async (req, res) => {
       Program.user = founduser.map((User) => User._id);
     } else {
       return res.status(400).json({ message: "usuario no encontrado" });
+    }
+  }
+  if (aplication && aplication.length > 0) {
+    const foundaplication = await aplication.find({ _id: { $in: aplication } });
+    console.log(foundaplication);
+    if (foundaplication.length > 0) {
+      Program.Info = foundaplication.map((User) => User._id);
+    } else {
+      return res.status(400).json({ message: "servicio no encontrado" });
     }
   }
   await Program.save();
