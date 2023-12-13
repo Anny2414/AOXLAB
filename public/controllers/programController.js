@@ -28,10 +28,10 @@ const getProgrambyid = async (req, res) => {
 };
 
 const postProgram = async (req, res) => {
-  const { title,start,status,user } = req.body;
+  const { title,start,status,user,Info } = req.body;
 
   const Program = new program({
-    title,start,status,user
+    title,start,status,user,Info
   });
   if (user && user.length > 0) {
     const founduser = await User.find({ _id: { $in: user } });
