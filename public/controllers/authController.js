@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const Role = require("../models/roleModel");
 const login = async (req, res) => {
   try {
-    const { NIT, password } = req.body;
-    const usuario = await User.findOne({ NIT});
+    const { NIT_, password } = req.body;
+    const usuario = await User.findOne({NIT_});
     if (!usuario) {
       return (
         res.status(404).json({ message: "Usuario no encontrado" }),
@@ -18,7 +18,7 @@ const login = async (req, res) => {
     );
 
     if (isPasswordValid) {
-      const usuario = await User.findOne({NIT});
+      const usuario = await User.findOne({NIT_});
       const token = jwt.sign({ id: usuario._id }, process.env.SECRET, {
         expiresIn: 86400,
       });
