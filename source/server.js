@@ -13,10 +13,6 @@ class Server {
     this.app.use(express.static("public"));
     this.app.use(express.json());
     this.app.use(cors({
-      origin: 'https://aoxlab-zim0.onrender.com',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
-      credentials: true,
     }));
     this.conection();
   }

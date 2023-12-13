@@ -47,7 +47,7 @@ const postProgram = async (req, res) => {
     const foundaplication = await aplication.find({ _id: { $in: aplication } });
     console.log(foundaplication);
     if (foundaplication.length > 0) {
-      Program.Info = foundaplication.map((User) => User._id);
+      Program.Info = foundaplication.map((aplication) => aplication._id);
     } else {
       return res.status(400).json({ message: "servicio no encontrado" });
     }
