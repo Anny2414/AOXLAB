@@ -10,6 +10,36 @@ const getApplication = async (req, res) => {
     res.status(500).json({ error: "Error al obtener el servicio" });
   }
 };
+const getApplicationByDateAndUserId = async (req, res) => {
+  try {
+    const { date, userId } = req.query; // Obteniendo los parámetros de la solicitud GET
+
+    // Modificar la lógica según tu esquema de base de datos
+    // Por ejemplo, asumiendo que tienes un modelo llamado Application y campos date y userId
+    const application = await Application.find({ date, userId });
+
+    if (!application) {
+      return res
+        .status(404)
+        .json({
+          message:
+            "No se encontró ninguna aplicación para la fecha y el ID de usuario proporcionados",
+        });
+    }
+
+    res.status(200).json({ application });
+  } catch (error) {
+    console.error(
+      "Error al obtener la aplicación por fecha y ID de usuario:",
+      error
+    );
+    res
+      .status(500)
+      .json({
+        error: "Error al obtener la aplicación por fecha y ID de usuario",
+      });
+  }
+};
 
 const getApplications = async (req, res) => {
   try {
@@ -20,7 +50,6 @@ const getApplications = async (req, res) => {
     res.status(500).json({ error: "Error al obtener los servicios" });
   }
 };
-
 const postApplication = async (req, res) => {
   try {
     const newApplication = new Application(req.body);
@@ -35,7 +64,11 @@ const postApplication = async (req, res) => {
 const putApplication = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedApplication = await Application.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedApplication = await Application.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true }
+    );
     if (!updatedApplication) {
       return res.status(404).json({ error: "Servicio no encontrado" });
     }
@@ -61,6 +94,7 @@ const deleteApplication = async (req, res) => {
 };
 
 module.exports = {
+  getApplicationByDateAndUserId,
   getApplication,
   getApplications,
   postApplication,

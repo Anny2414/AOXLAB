@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const {
+  getApplicationByDateAndUserId,
   getApplication,
   getApplications,
   postApplication,
@@ -7,7 +8,7 @@ const {
   deleteApplication,
 } = require("../controllers/applicationController");
 const router = Router();
-
+router.get("/byDateAndUserId", getApplicationByDateAndUserId);
 router.get("/:id", getApplication);
 router.get("/", getApplications);
 router.post("/", postApplication);
