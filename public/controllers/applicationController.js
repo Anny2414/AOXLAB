@@ -10,37 +10,6 @@ const getApplication = async (req, res) => {
     res.status(500).json({ error: "Error al obtener el servicio" });
   }
 };
-const getApplicationByDateAndUserId = async (req, res) => {
-  try {
-    const { date, userId } = req.query; // Obteniendo los parámetros de la solicitud GET
-
-    // Modificar la lógica según tu esquema de base de datos
-    // Por ejemplo, asumiendo que tienes un modelo llamado Application y campos date y userId
-    const application = await Application.find({ date, userId });
-
-    if (!application) {
-      return res
-        .status(404)
-        .json({
-          message:
-            "No se encontró ninguna aplicación para la fecha y el ID de usuario proporcionados",
-        });
-    }
-
-    res.status(200).json({ application });
-  } catch (error) {
-    console.error(
-      "Error al obtener la aplicación por fecha y ID de usuario:",
-      error
-    );
-    res
-      .status(500)
-      .json({
-        error: "Error al obtener la aplicación por fecha y ID de usuario",
-      });
-  }
-};
-
 const getApplications = async (req, res) => {
   try {
     const applications = await Application.find();
@@ -94,7 +63,6 @@ const deleteApplication = async (req, res) => {
 };
 
 module.exports = {
-  getApplicationByDateAndUserId,
   getApplication,
   getApplications,
   postApplication,
