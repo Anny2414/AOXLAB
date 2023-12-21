@@ -1,7 +1,7 @@
 const program = require("../models/programModel");
 const User = require ("../models/userModel")
 const getprograms = async (req, res) => {
-  const programas = await program.find().populate('Info');
+  const programas = await program.find().populate('Info').exec();
   try {
     res.send({
       ok: 200,
