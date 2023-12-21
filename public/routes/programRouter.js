@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const {getProgrambyid,getprograms,postProgram,getProgrambyiduser} = require("../controllers/programController");
+const {getprograms,postProgram,getProgrambyid,getProgrambyiduser} = require("../controllers/programController");
 const router = Router();
 router.get("/", getprograms);
-router.get("/:id", getProgrambyid);
-router.get("/:id", getProgrambyiduser);
-router.post("/", postProgram);
+router.get('/programs/user/:id', getProgrambyiduser);
+router.get('/programs/:id',getProgrambyid);
+router.post("/",postProgram);
 
 module.exports = router;

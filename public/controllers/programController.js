@@ -15,28 +15,23 @@ const getprograms = async (req, res) => {
 
 const getProgrambyiduser = async (req, res) => {
   try {
-    const id = req.params.id;
-    const programa = await program.find({ user: id });
-    res.send({
-      ok: 200,
-      programa,
-    });
+    const userId = req.params.id; // Suponiendo que aquí estás buscando por ID de usuario
+    const programas = await program.find({ user: userId }).populate('Info').exec();
+    res.status(200).json({ ok: true, programas });
   } catch (error) {
-    console.error("Error al obtener el agendamiento:", error);
-    res.status(500).json({ error: "Error al obtener el agendamiento" });
+    console.error("Error al obtener programas por ID de usuario:", error);
+    res.status(500).json({ error: "Error al obtener programas por ID de usuario" });
   }
 };
+
 const getProgrambyid = async (req, res) => {
   try {
-    const id = req.params.id;
-    const programa = await program.find({ _id: id });
-    res.send({
-      ok: 200,
-      programa,
-    });
+    const id = req.params.id; // ID del programa
+    const programa = await program.findById(id).populate('Info').exec();
+    res.status(200).json({ ok: true, programa });
   } catch (error) {
-    console.error("Error al obtener el agendamiento:", error);
-    res.status(500).json({ error: "Error al obtener el agendamiento" });
+    console.error("Error al obtener programa por ID:", error);
+    res.status(500).json({ error: "Error al obtener programa por ID" });
   }
 };
 
