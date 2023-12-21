@@ -1,7 +1,7 @@
 const program = require("../models/programModel");
 const User = require ("../models/userModel")
 const getprograms = async (req, res) => {
-  const programas = await program.find();
+  const programas = await program.find().populate('Servicios');
   try {
     res.send({
       ok: 200,
@@ -12,11 +12,10 @@ const getprograms = async (req, res) => {
     res.status(500).json({ error: "Error al obtener el agendamiento" });
   }
 };
-
 const getProgrambyid = async (req, res) => {
   try {
     const id = req.params.id;
-    const programa = await program.find({ user: id });
+    const programa = await program.find({ user: id }).populate('Servicios');
     res.send({
       ok: 200,
       programa,
