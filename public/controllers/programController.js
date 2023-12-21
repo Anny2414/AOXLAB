@@ -27,7 +27,7 @@ const getProgrambyiduser = async (req, res) => {
 const getProgrambyid = async (req, res) => {
   try {
     const id = req.params.id; // ID del programa
-    const programa = await program.findById(id).populate('Info').exec();
+    const programa = await program.findById({_id : id}).populate('Info').exec();
     res.status(200).json({ ok: true, programa });
   } catch (error) {
     console.error("Error al obtener programa por ID:", error);
