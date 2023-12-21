@@ -1,7 +1,8 @@
 const program = require("../models/programModel");
 const User = require ("../models/userModel")
+const event = require("../models/applicationModel")
 const getprograms = async (req, res) => {
-  const programas = await program.find().populate('Servicios');
+  const programas = await program.find().populate('info');
   try {
     res.send({
       ok: 200,
@@ -15,7 +16,7 @@ const getprograms = async (req, res) => {
 const getProgrambyid = async (req, res) => {
   try {
     const id = req.params.id;
-    const programa = await program.find({ user: id }).populate('Servicios');
+    const programa = await program.find({ user: id }).populate('info');
     res.send({
       ok: 200,
       programa,
