@@ -13,10 +13,23 @@ const getprograms = async (req, res) => {
   }
 };
 
-const getProgrambyid = async (req, res) => {
+const getProgrambyiduser = async (req, res) => {
   try {
     const id = req.params.id;
     const programa = await program.find({ user: id });
+    res.send({
+      ok: 200,
+      programa,
+    });
+  } catch (error) {
+    console.error("Error al obtener el agendamiento:", error);
+    res.status(500).json({ error: "Error al obtener el agendamiento" });
+  }
+};
+const getProgrambyid = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const programa = await program.find({ _id: id });
     res.send({
       ok: 200,
       programa,
@@ -59,6 +72,7 @@ const postProgram = async (req, res) => {
 };
 module.exports = {
   getProgrambyid,
+  getProgrambyiduser,
   getprograms,
   postProgram,
 };
