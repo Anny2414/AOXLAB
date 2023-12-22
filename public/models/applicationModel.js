@@ -2,7 +2,7 @@
 const { Schema, model } = require("mongoose");
 const modelApplication = new Schema({
   Muestreo: {
-    ambiente: {
+    Ambiente: {
       selected: {
         type: Boolean,
         default: false,
@@ -12,7 +12,7 @@ const modelApplication = new Schema({
         default: '',
       },
     },
-    manipuladores: {
+    Manipuladores: {
       selected: {
         type: Boolean,
         default: false,
@@ -22,7 +22,7 @@ const modelApplication = new Schema({
         default: '',
       },
     },
-    superficies: {
+    Superficies: {
       selected: {
         type: Boolean,
         default: false,
@@ -32,7 +32,7 @@ const modelApplication = new Schema({
         default: '',
       },
     },
-    microbiologico: {
+    Microbiologico: {
       selected: {
         type: Boolean,
         default: false,
@@ -42,7 +42,7 @@ const modelApplication = new Schema({
         default: '',
       },
     },
-    fisicoquimico: {
+    Fisicoquimico: {
       selected: {
         type: Boolean,
         default: false,
