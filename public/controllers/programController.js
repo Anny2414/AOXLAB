@@ -68,7 +68,7 @@ const postProgram = async (req, res) => {
 const deleteProgram = async (req, res) => {
   try {
     const id = req.params.id;
-    const deleteProgram = await Application.findByIdAndDelete(id);
+    const deleteProgram = await program.findByIdAndDelete(id);
     if (!deleteProgram) {
       return res.status(404).json({ error: "Servicio no encontrado" });
     }

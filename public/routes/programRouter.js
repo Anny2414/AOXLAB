@@ -5,6 +5,6 @@ router.get("/", getprograms);
 router.get('/user/:id', getProgrambyiduser);
 router.get('/:id',getProgrambyid);
 router.post("/",postProgram);
-router.delete("/",deleteProgram);
+router.delete("/:id",deleteProgram);
 
 module.exports = router;
