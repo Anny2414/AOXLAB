@@ -23,13 +23,17 @@ const getUsers = async (req, res) => {
   });
 };
 const postUser = async (req, res) => {
-  const { name, lastname, NIT_, password } = req.body;
+  const { name, NIT_, email, phone, password, roles, status } =
+  req.body;
   const hashedPassword = await bcryptjs.hash(password, 10);
   const usuario = new Usuario({
     name,
-    lastname,
     NIT_,
-    password: hashedPassword,
+    email,
+    phone,
+    password: await User.encryptPassword(password),
+    roles,
+    status,
   });
   await usuario.save();
   res.send({
