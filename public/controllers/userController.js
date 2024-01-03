@@ -1,4 +1,4 @@
-const bcryptjs = require("bcryptjs");
+
 const Usuario = require("../models/userModel");
 
 const getUserByid = async (req, res) => {
@@ -23,15 +23,13 @@ const getUsers = async (req, res) => {
   });
 };
 const postUser = async (req, res) => {
-  const { name, NIT_, email, phone, password, roles, status } =
-  req.body;
-  const hashedPassword = await bcryptjs.hash(password, 10);
+  const { name, NIT_, email, phone, password, roles, status }= req.body;
   const usuario = new Usuario({
     name,
     NIT_,
     email,
     phone,
-    password: await User.encryptPassword(password),
+    password: await Usuario.encryptPassword(password),
     roles,
     status,
   });
