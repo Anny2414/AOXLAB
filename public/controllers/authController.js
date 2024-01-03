@@ -68,8 +68,8 @@ const register = async (req, res) => {
 
     console.log(newuser);
     const usersaved = await newuser.save();
-    const token = jwt.sign({ id: usersaved._id , user : usersaved}, process.env.SECRET, {
-      expiresIn: 86400,
+    const token = jwt.sign({ id: usersaved._id , role : usersaved.roles}, process.env.SECRET, {
+      expiresIn: "2h",
     });
     res.json({ message: "Registro exitoso", token });
   }
