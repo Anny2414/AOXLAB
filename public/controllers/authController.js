@@ -19,8 +19,8 @@ const login = async (req, res) => {
 
     if (isPasswordValid) {
       const usuario = await User.findOne({NIT_});
-      const token = jwt.sign({ id: usuario._id }, process.env.SECRET, {
-        expiresIn: 86400,
+      const token = jwt.sign({ id: usuario._id , role : usuario.roles}, process.env.SECRET, {
+        expiresIn: '2h',
       });
       return res.status(200).json({ message: "Logueo exitoso", token });
     } else {
@@ -68,8 +68,8 @@ const register = async (req, res) => {
 
     console.log(newuser);
     const usersaved = await newuser.save();
-    const token = jwt.sign({ id: usersaved._id , role : usersaved.roles}, process.env.SECRET, {
-      expiresIn: "2h",
+    const token = jwt.sign({ id: usersaved._id }, process.env.SECRET, {
+      expiresIn: 86400,
     });
     res.json({ message: "Registro exitoso", token });
   }
